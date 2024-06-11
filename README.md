@@ -1,29 +1,29 @@
 # 3ds-to-cia
-Just another 3DS to CIA converter for Linux and Windows.
+Juste un autre convertisseur 3DS en CIA pour Linux et Windows.
 
-## Usage
-### Easy (precompiled version)
-Just unzip the released version, put your roms in the `roms` directory, put the xorpads in the `xorpads` directory and launch 3ds-to-cia.  
-The script will tell you what you need to do.  
-The resulting CIAs will be found in `cia` directory.
+## Utilisation
+### Facile (version précompilée)
+Décompressez simplement la version publiée, placez vos ROM dans le répertoire `roms`, placez les xorpads dans le répertoire `xorpads` et lancez 3ds-to-cia.
+Le script vous dira ce que vous devez faire.
+Les CIA résultantes seront trouvées dans le répertoire `cia`.
 
-### Pro (from sources)
-Install `python2` with `colorama`, build [make_cia](https://github.com/ihaveamac/ctr_toolkit) and put it in your PATH, then just launch `./3ds-to-cia.py`
+### Pro (à partir des sources)
+Installez `python2` avec `colorama`, compilez [make_cia](https://github.com/ihaveamac/ctr_toolkit) et placez-le dans votre PATH, puis lancez simplement `./3ds-to-cia.py`
 
-## Building release
-You need to install python2 with pyinstaller and colorama, then:
+### Construction de la version publiée
+Vous devez installer python2 avec pyinstaller et colorama, puis :
 ```
 pyinstaller 3ds-to-cia.spec
 ```
 
-in `distro` directory you will find the resulting binary.
+dans le répertoire `distro`, vous trouverez le binaire résultant.
 
-Put the binary in a folder with `cia`, `roms` and `xorpads` empty directories, zip it and redistribuite.
+Placez le binaire dans un dossier avec `cia`, `roms` et `xorpads` des répertoires vides, compressez-le et redistribuez-le.
 
-## Known Bugs
-Big roms (2GB+) cannot be converted (yet) on 32-bit operating systems or if you are using a 32-bit make_cia.
+## Bugs Connus
+Les ROMs volumineuses (2 Go ou plus) ne peuvent pas être converties (encore) sur des systèmes d'exploitation 32 bits ou si vous utilisez un make_cia 32 bits.
 
-## Credits
-* `mid-kid` for the informations about the procedure
-* `3DSGuy` for make_cia
-* `ncchinfo.bin` generation based on `ArchShift` and `d0k3` [Decrypt9WIP's ncchinfo_gen_exh.py](https://github.com/d0k3/Decrypt9WIP/blob/master/scripts/ncchinfo_gen_exh.py)
+## Crédits
+`mid-kid` pour les informations sur la procédure
+`3DSGuy` pour make_cia
+Génération de `ncchinfo.bin` basée sur `ArchShift` et `d0k3` [Decrypt9WIP's ncchinfo_gen_exh.py](https://github.com/d0k3/Decrypt9WIP/blob/master/scripts/ncchinfo_gen_exh.py)
