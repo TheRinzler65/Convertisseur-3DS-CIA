@@ -1,4 +1,4 @@
-# 3ds-to-cia
+# Convertisseur-3DS-CIA
 Juste un autre convertisseur 3DS en CIA pour Linux et Windows.
 
 ## Utilisation
