@@ -143,7 +143,7 @@ def ncchinfo_gen(files):
         return bytes(counter)
 
     def parseNCSD(fh, crc32):
-        print('Parsing NCSD in file "%s":' % os.path.basename(fh.name))
+        print('Analyse du NCSD dans le fichier « %s »:' % os.path.basename(fh.name))
         entries = 0
         data = ''
 
@@ -161,9 +161,9 @@ def ncchinfo_gen(files):
     def parseNCCH(fh, crc32, offs=0, idx=0, titleId='', standAlone=1):
         tab = '    ' if not standAlone else '  '
         if not standAlone:
-            print('  Parsing %s NCCH' % ncsdPartitions[idx])
+            print('  Analyse de %s NCCH' % ncsdPartitions[idx])
         else:
-            print('Parsing NCCH in file "%s":' % os.path.basename(fh.name))
+            print('Analyse du NCCH dans le fichier « %s »:' % os.path.basename(fh.name))
         entries = 0
         data = ''
 
@@ -177,19 +177,19 @@ def ncchinfo_gen(files):
         keyY = bytearray(header.signature[:16])
 
         if not standAlone:
-            print(tab + 'NCCH Offset: %08X' % offs)
-        print(tab + 'Product code: ' + str(bytearray(header.productCode)).rstrip('\x00'))
+            print(tab + 'Offset NCCH: %08X' % offs)
+        print(tab + 'Code de produit: ' + str(bytearray(header.productCode)).rstrip(b'\x00').decode())
         if not standAlone:
-            print(tab + 'Partition number: %d' % idx)
-        print(tab + 'KeyY: %s' % binascii.hexlify(keyY).upper())
-        print(tab + 'Title ID: %s' % reverseCtypeArray(header.titleId))
-        print(tab + 'Format version: %d' % header.formatVersion)
+            print(tab + 'Numéro de partition : %d' % idx)
+        print(tab + 'KeyY: %s' % binascii.hexlify(keyY).upper().decode())
+        print(tab + 'Titre ID: %s' % reverseCtypeArray(header.titleId).decode())
+        print(tab + 'Version du format: %d' % header.formatVersion)
 
         fixed_key_flag = 0
         ncchFlag7 = bytearray(header.flags)[7]
         if ncchFlag7 == 0x1:
             fixed_key_flag = ncchFlag7
-            print(tab + 'Uses fixed crypto key')
+            print(tab + 'Utilisez une clé cryptographique fixe')
 
         print('')
 
@@ -217,7 +217,7 @@ def ncchinfo_gen(files):
             offset = header.romfsOffset * mediaUnitSize
             sectionSize = header.romfsSize * mediaUnitSize
         else:
-            print('Invalid NCCH section type was somehow passed in. :/')
+            print("Le type de section NCCH invalide a été transmis d'une manière ou d'une autre. :/")
             sys.exit()
 
         counter = getNcchAesCounter(header, type)
@@ -229,17 +229,17 @@ def ncchinfo_gen(files):
             sectionMb = 1 #Should never happen, but meh.
 
         if doPrint:
-            print(tab + '%s offset:  %08X' % (sectionName, offset))
-            print(tab + '%s counter: %s' % (sectionName, binascii.hexlify(counter)))
-            print(tab + '%s bytes: %d' % (sectionName, sectionSize))
-            print(tab + '%s Megabytes(rounded up): %d' % (sectionName, sectionMb))
+            print(tab + '%s décalage:  %08X' % (sectionName, offset))
+            print(tab + '%s compteur: %s' % (sectionName, binascii.hexlify(counter).decode()))
+            print(tab + '%s octets: %d' % (sectionName, sectionSize))
+            print(tab + '%s Mégaoctets (arrondis): %d' % (sectionName, sectionMb))
 
         return struct.pack('<16s16sIIIIQ', str(counter), str(keyY), sectionMb, 0, ncchFlag7, ncchFlag3, titleId)
 
     def genOutName(titleId, crc32, partitionName, sectionName):
         outName = b'/%s.%08lx.%s.%s.xorpad' % (titleId, crc32, partitionName, sectionName)
         if len(outName) > 112:
-            print("Output file name too large. This shouldn't happen.")
+            print("Le nom du fichier de sortie est trop grand. Cela ne devrait pas se produire.")
             sys.exit()
 
         return outName + (b'\x00'*(112-len(outName))) #Pad out so whole entry is 160 bytes (48 bytes are set before filename)
@@ -276,7 +276,7 @@ def ncchinfo_gen(files):
 # Apply a xorpad
 def xor(bytes, xorpad):
     if len(bytes) > len(xorpad):
-        raise Exception("xorpad is too small")
+        raise Exception("Le xorpad est trop petit")
 
     result = b""
     for x in range(len(bytes)):
@@ -418,9 +418,9 @@ def convert_to_cia(filename, crc32):
 
         if verify_xorpad(fh, xorpad_file) == False:
             if decrypted:
-                print("Xorpad file is not valid.")
+                print("Le fichier Xorpad n'est pas valide.")
             else:
-                print("Rom corrupted.")
+                print("Rom corrompu.")
             return False
 
         if VERBOSE:
@@ -456,15 +456,15 @@ def convert_to_cia(filename, crc32):
             os.remove(content)
 
         if ret != 0:
-            print(colorama.Fore.RED + "Error during CIA creation of '%s'" % filename)
-            print(colorama.Style.RESET_ALL + "Relaunch the program with -v for more informations.")
-            print(colorama.Fore.RED + "[ERROR]")
+            print(colorama.Fore.RED + "Erreur lors de la création de la CIA de '%s'" % filename)
+            print(colorama.Style.RESET_ALL + "Relancer le programme avec -v pour plus d'informations.")
+            print(colorama.Fore.RED + "[ERREUR]")
         elif new_keyY:
-            print(colorama.Fore.YELLOW + "[WARNING]")
-            print("This is a 9.6+ game which uses seed encryption and may not work directly!")
+            print(colorama.Fore.YELLOW + "[AVERTISSEMENT]")
+            print("Il s'agit d'un jeu 9.6+ qui utilise le cryptage des graines et peut ne pas fonctionner directement !")
             print()
-            print("If this title is of the same region of your hardware you can decrypt it by visiting the eShop page of this title after the installation.")
-            print("If this title is of a different region than your hardware you need to decrypt the CIA file using Decryp9WIP before the installation.")
+            print("Si ce titre est de la même région que votre matériel, vous pouvez le décrypter en visitant la page eShop de ce titre après l'installation.")
+            print("Si ce titre est d'une région différente de celle de votre matériel, vous devez décrypter le fichier CIA à l'aide de Decryp9WIP avant de l'installer.")
             print(colorama.Style.RESET_ALL)
         else:
             print(colorama.Fore.GREEN + "[OK]")
@@ -511,13 +511,13 @@ def main_check(filename, remove):
         titleid = get_titleid(fh)
         # Decrypted
         if get_ncchFlag7(fh) & 0x4:
-            print(colorama.Fore.YELLOW + " [NOT NEEDED]")
+            print(colorama.Fore.YELLOW + " [PAS BESOIN]")
         elif not find_xorpad(titleid, crc32):
-            print(colorama.Fore.RED + " [NOT FOUND]")
+            print(colorama.Fore.RED + " [NON TROUVE]")
             missing_xorpads.append([filename, crc32])
             return
         else:
-            print(colorama.Fore.GREEN + " [FOUND]")
+            print(colorama.Fore.GREEN + " [TROUVE]")
     if remove:
         os.remove(filename)
 
@@ -529,7 +529,7 @@ if __name__ == "__main__":
     make_cia = which("make_cia")
 
     if make_cia is None:
-        print(colorama.Fore.RED + "make_cia not found.")
+        print(colorama.Fore.RED + "make_cia non trouvé.")
         print(colorama.Style.RESET_ALL)
         sys.exit(1)
 
@@ -621,7 +621,7 @@ if __name__ == "__main__":
                 print("Copiez ncchinfo.bin sur votre 3DS et faites en sorte qu'il génère les xorpads nécessaires.")
                 print("Copiez ensuite les xorpads générés dans le répertoire 'xorpads'.")
                 print("")
-                input("Appuyez sur Entrée pour continuer...")
+                input("\nAppuyez sur Entrée pour continuer...")
             else:
                 check = False
 
