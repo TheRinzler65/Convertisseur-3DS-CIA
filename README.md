@@ -13,7 +13,7 @@ Les fichiers CIA résultants seront situés dans le répertoire `cia`.
 - Le programme `make_cia` est déjà dans le code source où alors installez le et mettez le dans votre `PATH` (Les deux marchent)
 
 ## Compilation de la version
-### Sur Windows:
+### Sur Windows :
 
 Vous devez installer python 3.x.x avec pyinstaller et colorama (normalement par défaut), puis faites dans un Terminal :
 ```
