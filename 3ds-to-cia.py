@@ -217,7 +217,7 @@ def ncchinfo_gen(files):
             offset = header.romfsOffset * mediaUnitSize
             sectionSize = header.romfsSize * mediaUnitSize
         else:
-            print('Le type de section NCCH invalide a été transmis d'une manière ou d'une autre. :/')
+            print("Le type de section NCCH invalide a été transmis d'une manière ou d'une autre. :/")
             sys.exit()
 
         counter = getNcchAesCounter(header, type)
