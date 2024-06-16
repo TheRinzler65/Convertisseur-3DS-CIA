@@ -467,7 +467,7 @@ def convert_to_cia(filename, crc32):
             print("Si ce titre est d'une région différente de celle de votre matériel, vous devez décrypter le fichier CIA à l'aide de Decryp9WIP avant de l'installer.")
             print(colorama.Style.RESET_ALL)
         else:
-            print(colorama.Fore.GREEN + "[OK]")
+            print(colorama.Fore.GREEN + "[TERMINER]")
 
         return ret
 
@@ -548,6 +548,8 @@ if __name__ == "__main__":
             print("Aucun fichier valide n'a été trouvé dans le répertoire rom.")
             sys.exit(1)
 
+        print(colorama.Fore.MAGENTA + "Crée par Rinzler - Discord : https://discord.gg/heUzNmpXgM")
+        print("")
         print(colorama.Fore.GREEN + "Travail en cours... Veuillez patienter...")
         print(colorama.Style.RESET_ALL)
 
@@ -555,9 +557,9 @@ if __name__ == "__main__":
         while True:
             missing_xorpads = []
             if check:
-                print(colorama.Style.BRIGHT + "Recherche de xorpads...")
+                print(colorama.Style.BRIGHT + "Recherche d'un xorpads...")
             else:
-                print(colorama.Style.BRIGHT + "Création de la CIA...")
+                print(colorama.Style.BRIGHT + "Création du fichier .cia...")
             print(colorama.Style.RESET_ALL)
             for rom in roms:
                 if zipfile.is_zipfile(rom):
@@ -621,10 +623,16 @@ if __name__ == "__main__":
                 print("Copiez ncchinfo.bin sur votre 3DS et faites en sorte qu'il génère les xorpads nécessaires.")
                 print("Copiez ensuite les xorpads générés dans le répertoire 'xorpads'.")
                 print("")
-                input("\nAppuyez sur Entrée pour continuer...")
+                print("Si vous avez besoin d'aide passez sur mon serveur Discord")
+                print("https://discord.gg/heUzNmpXgM")
+                print("")
+                input("Appuyez sur Entrée pour continuer...")
             else:
                 check = False
 
     finally:
         shutil.rmtree(tmpdir)
-        input("\n\nAppuyez sur Entrée pour continuer....")
+        print("Si vous avez besoin d'aide passez sur mon serveur Discord")
+        print("https://discord.gg/heUzNmpXgM")
+        print("")
+        input("Appuyez sur Entrée pour continuer....")
