@@ -13,6 +13,8 @@ Les fichiers CIA résultants seront situés dans le répertoire `cia`.
 - Le programme `make_cia` est déjà dans le code source où alors installez le et mettez le dans votre `PATH` (Les deux marchent)
 
 ## Compilation de la version
+### Sur Windows:
+
 Vous devez installer python 3.x.x avec pyinstaller et colorama (normalement par défaut), puis faites dans un Terminal :
 ```
 pyinstaller 3ds-to-cia.spec
@@ -22,6 +24,9 @@ Dans le répertoire `dist` vous trouverez le fichier binaire généré.
 
 Placez le fichier binaire dans un dossier avec les répertoires vides  `cia`, `roms` et `xorpads` compressez-le et redistribuez-le.
 
+
+### Sur Linux : (prochainement)
+
 ## Bugs Connus
 Les ROMs volumineuses (2 Go et plus) ne peuvent pas être converties (pour le moment) sur des systèmes d'exploitation 32 bits ou si vous utilisez make_cia en 32 bits.
 
@@ -29,3 +34,6 @@ Les ROMs volumineuses (2 Go et plus) ne peuvent pas être converties (pour le mo
 * `mid-kid` pour les informations sur la procédure
 * `3DSGuy` pour make_cia
 * Génération de `ncchinfo.bin` basée sur `ArchShift` et `d0k3` [Decrypt9WIP's ncchinfo_gen_exh.py](https://github.com/d0k3/Decrypt9WIP/blob/master/scripts/ncchinfo_gen_exh.py)
+* `drizzt` Créateur original du programme que je remercie
+
+Si vous avez besoin de renseignement allez sur mon [Discord](https://discord.gg/heUzNmpXgM)
