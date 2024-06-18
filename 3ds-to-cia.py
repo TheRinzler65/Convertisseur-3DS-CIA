@@ -467,7 +467,7 @@ def convert_to_cia(filename, crc32):
             print("Si ce titre est d'une région différente de celle de votre matériel, vous devez décrypter le fichier CIA à l'aide de Decryp9WIP avant de l'installer.")
             print(colorama.Style.RESET_ALL)
         else:
-            print(colorama.Fore.GREEN + "[TERMINER]")
+            print(colorama.Fore.GREEN + "[TERMINÉ]")
 
         return ret
 
@@ -513,11 +513,11 @@ def main_check(filename, remove):
         if get_ncchFlag7(fh) & 0x4:
             print(colorama.Fore.YELLOW + " [PAS BESOIN]")
         elif not find_xorpad(titleid, crc32):
-            print(colorama.Fore.RED + " [NON TROUVE]")
+            print(colorama.Fore.RED + " [NON TROUVÉ]")
             missing_xorpads.append([filename, crc32])
             return
         else:
-            print(colorama.Fore.GREEN + " [TROUVE]")
+            print(colorama.Fore.GREEN + " [TROUVÉ]")
     if remove:
         os.remove(filename)
 
@@ -538,7 +538,7 @@ if __name__ == "__main__":
 
     if BITS == "32":
         print(colorama.Fore.YELLOW + "Vous utilisez un système d'exploitation 32 bits.")
-        print("Vous ne pourrez pas convertir des roms de grande taille (2GB+).")
+        print("Vous ne pourrez pas convertir des roms de grande taille (2GO+).")
         print(colorama.Style.RESET_ALL)
 
     roms = glob.glob(os.path.join("roms", "*.[3zZ][dDiI][sSpP]"))
@@ -548,7 +548,7 @@ if __name__ == "__main__":
             print("Aucun fichier valide n'a été trouvé dans le répertoire rom.")
             sys.exit(1)
 
-        print(colorama.Fore.MAGENTA + "Crée par Rinzler - Discord : https://discord.gg/heUzNmpXgM")
+        print(colorama.Fore.MAGENTA + "Créé par Rinzler - Discord : https://discord.gg/heUzNmpXgM")
         print("")
         print(colorama.Fore.GREEN + "Travail en cours... Veuillez patienter...")
         print(colorama.Style.RESET_ALL)
