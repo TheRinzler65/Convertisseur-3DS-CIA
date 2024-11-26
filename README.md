@@ -1,5 +1,5 @@
 # Multitool 3DS
-Un ensemble d'outils destiné pour la Nintendo 3DS
+Un ensemble d'outils destiné pour la Nintendo 3DS (en cours de création ne pas toucher !!!)
 
 ## Utilisation
 
